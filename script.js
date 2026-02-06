@@ -196,9 +196,13 @@ function showDemoModal() {
             <button class="modal-close">&times;</button>
             <div class="modal-icon">📅</div>
             <h3 class="modal-title">Request monday.com Talent</h3>
-            <p class="modal-text">Thank you for your interest! <br>You can contact us by emailing your needs to - <b>contact@mondaystaffings.com</b><br>
-Our team will contact you within 24 hours to discuss your monday.com staffing needs and match you with the right experts.</p>
-          
+            <p class="modal-text">Thank you for your interest! Our team will contact you within 24 hours to discuss your monday.com staffing needs and match you with the right experts.</p>
+            <form class="modal-form" id="demoForm">
+                <input type="text" placeholder="Your Name" required class="modal-input">
+                <input type="email" placeholder="Work Email" required class="modal-input">
+                <input type="text" placeholder="Company Name" required class="modal-input">
+                <button type="submit" class="modal-submit">Request Talent</button>
+            </form>
         </div>
     `;
     
