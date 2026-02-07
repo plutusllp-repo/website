@@ -241,8 +241,8 @@ function showDemoModal() {
         const formData = new FormData(form);
         
         try {
-            // IMPORTANT: Replace YOUR_EMAIL@example.com with your actual email address
-            const response = await fetch('https://formsubmit.co/YOUR_EMAIL@example.com', {
+          
+            const response = await fetch('https://formsubmit.co/aditya@plutusllp.com', {
                 method: 'POST',
                 body: formData,
                 headers: {
