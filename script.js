@@ -198,12 +198,35 @@ function showDemoModal() {
             <h3 class="modal-title">Request monday.com Talent</h3>
             <p class="modal-text">Thank you for your interest! Our team will contact you within 24 hours to discuss your monday.com staffing needs and match you with the right experts.</p>
             <form class="modal-form" id="demoForm">
-                <input type="text" name="name" placeholder="Your Name" required class="modal-input">
-                <input type="email" name="email" placeholder="Work Email" required class="modal-input">
-                <input type="text" name="company" placeholder="Company Name" required class="modal-input">
-                <input type="hidden" name="_subject" value="New monday.com Talent Request">
+                <input type="text" name="Full_Name" placeholder="Your Full Name" required class="modal-input">
+                <input type="email" name="Email_Address" placeholder="Work Email" required class="modal-input">
+                <input type="text" name="Company_Name" placeholder="Company Name" required class="modal-input">
+                <input type="tel" name="Phone_Number" placeholder="Phone Number (Optional)" class="modal-input">
+                <select name="Service_Needed" required class="modal-input">
+                    <option value="">Select Service Needed</option>
+                    <option value="Dedicated monday.com Admin">Dedicated monday.com Admin</option>
+                    <option value="Workflow & Automation Design">Workflow & Automation Design</option>
+                    <option value="Integration & API Specialist">Integration & API Specialist</option>
+                    <option value="Reporting & Dashboards">Reporting & Dashboards</option>
+                    <option value="User Training & Enablement">User Training & Enablement</option>
+                    <option value="Ongoing Optimization Support">Ongoing Optimization Support</option>
+                    <option value="Not Sure / Multiple Services">Not Sure / Multiple Services</option>
+                </select>
+                <select name="Engagement_Type" required class="modal-input">
+                    <option value="">Preferred Engagement Type</option>
+                    <option value="Full-time">Full-time</option>
+                    <option value="Part-time">Part-time</option>
+                    <option value="Hourly">Hourly</option>
+                    <option value="Project-based">Project-based</option>
+                </select>
+                <textarea name="Additional_Details" placeholder="Tell us about your project or requirements (Optional)" class="modal-textarea" rows="3"></textarea>
+                
+                <!-- Hidden fields for email formatting -->
+                <input type="hidden" name="_subject" value="🚀 New monday.com Talent Request">
                 <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_template" value="box">
+                <input type="hidden" name="_autoresponse" value="Thank you for requesting monday.com talent! We've received your information and will contact you within 24 hours.">
+                
                 <button type="submit" class="modal-submit">Request Talent</button>
             </form>
         </div>
@@ -241,7 +264,7 @@ function showDemoModal() {
         const formData = new FormData(form);
         
         try {
-          
+            // IMPORTANT: Replace YOUR_EMAIL@example.com with your actual email address
             const response = await fetch('https://formsubmit.co/aditya@plutusllp.com', {
                 method: 'POST',
                 body: formData,
@@ -366,12 +389,14 @@ function addModalStyles() {
             background: white;
             border-radius: 16px;
             padding: 3rem 2.5rem;
-            max-width: 440px;
+            max-width: 480px;
             width: 100%;
             position: relative;
             transform: translateY(20px) scale(0.95);
             transition: transform 0.3s ease;
             text-align: center;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
         .modal-overlay.active .modal-content {
@@ -438,6 +463,24 @@ function addModalStyles() {
         }
         
         .modal-input:focus {
+            outline: none;
+            border-color: #6B63B5;
+            box-shadow: 0 0 0 4px rgba(107, 99, 181, 0.1);
+        }
+        
+        .modal-textarea {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .modal-textarea:focus {
             outline: none;
             border-color: #6B63B5;
             box-shadow: 0 0 0 4px rgba(107, 99, 181, 0.1);
