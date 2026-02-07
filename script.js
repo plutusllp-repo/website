@@ -198,9 +198,12 @@ function showDemoModal() {
             <h3 class="modal-title">Request monday.com Talent</h3>
             <p class="modal-text">Thank you for your interest! Our team will contact you within 24 hours to discuss your monday.com staffing needs and match you with the right experts.</p>
             <form class="modal-form" id="demoForm">
-                <input type="text" placeholder="Your Name" required class="modal-input">
-                <input type="email" placeholder="Work Email" required class="modal-input">
-                <input type="text" placeholder="Company Name" required class="modal-input">
+                <input type="text" name="name" placeholder="Your Name" required class="modal-input">
+                <input type="email" name="email" placeholder="Work Email" required class="modal-input">
+                <input type="text" name="company" placeholder="Company Name" required class="modal-input">
+                <input type="hidden" name="_subject" value="New monday.com Talent Request">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
                 <button type="submit" class="modal-submit">Request Talent</button>
             </form>
         </div>
@@ -223,10 +226,41 @@ function showDemoModal() {
         if (e.target === overlay) closeModal(overlay);
     });
     
-    // Form submission
-    overlay.querySelector('#demoForm').addEventListener('submit', (e) => {
+    // Form submission with FormSubmit integration
+    overlay.querySelector('#demoForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        showSuccessMessage(overlay);
+        
+        const form = e.target;
+        const submitBtn = form.querySelector('.modal-submit');
+        const originalText = submitBtn.textContent;
+        
+        // Show loading state
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+        
+        const formData = new FormData(form);
+        
+        try {
+            // IMPORTANT: Replace YOUR_EMAIL@example.com with your actual email address
+            const response = await fetch('https://formsubmit.co/YOUR_EMAIL@example.com', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                showSuccessMessage(overlay);
+            } else {
+                throw new Error('Failed to send');
+            }
+        } catch (error) {
+            console.error('Form submission error:', error);
+            alert('Sorry, there was an error submitting your request. Please try again or contact us directly.');
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
     });
 }
 
@@ -424,9 +458,14 @@ function addModalStyles() {
             margin-top: 0.5rem;
         }
         
-        .modal-submit:hover {
+        .modal-submit:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(107, 99, 181, 0.4);
+        }
+        
+        .modal-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
         }
         
         .success-content {
